@@ -21,9 +21,7 @@ class DNS:
                           open(self.config.get("DEFAULT", "blacklist_file"), 'r').readlines()]
 
     def createConfig(self):
-        """
-        Create a config file
-        """
+        """Create a config file"""
         config = configparser.ConfigParser()
         config.set("DEFAULT", "external_dns_ip", '1.1.1.1')
         config.set("DEFAULT", "blacklist_file", 'blacklist.conf')
@@ -32,6 +30,7 @@ class DNS:
         open(config.get("DEFAULT", "blacklist_file"), 'w').close()
 
     def external_work(self, data):
+        """Get data from external server"""
         external_serv = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         external_serv.sendto(data, (self.external_ip, 53))
         answer, addr = external_serv.recvfrom(512)
